@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main.xml"
+    app:startDestination="@id/categoryFragment">
+
+    <fragment
+        android:id="@+id/categoryFragment"
+
+        android:name="com.android.fragmentjetpacknavigation.CategoryFragment"
+        android:label="CategoryFragment">
+
+    </fragment>
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.android.fragmentjetpacknavigation.FavouriteFragment"
+        android:label="FavouriteFragment">
+
+    </fragment>
+    <fragment
+        android:id="@+id/myPostFragment"
+        android:name="com.android.fragmentjetpacknavigation.MyPostFragment"
+        android:label="MyPostFragment">
+
+    </fragment>
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.android.fragmentjetpacknavigation.SettingFragment"
+        android:label="SettingFragment">
+
+    </fragment>
+ <fragment
+     android:id="@+id/messageListningFragment"
+     android:name="com.android.fragmentjetpacknavigation.MessageListningFragment"
+     android:label="MessageListningFragment" >
+  <action
+      android:id="@+id/action_messageListningFragment_to_fullMsgViewFragment"
+      app:destination="@id/fullMsgViewFragment" />
+ </fragment>
+ <fragment
+     android:id="@+id/fullMsgViewFragment"
+     android:name="com.android.fragmentjetpacknavigation.FullMsgViewFragment"
+     android:label="FullMsgViewFragment" >
+  <action
+      android:id="@+id/action_fullMsgViewFragment_to_messageListningFragment"
+      app:destination="@id/messageListningFragment" />
+ </fragment>
+</navigation>
