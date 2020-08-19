@@ -1,4 +1,4 @@
-package com.android.fragmentjetpacknavigation;
+package com.android.fragmentjetpacknavigation.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.fragmentjetpacknavigation.R;
 
 import java.util.ArrayList;
 

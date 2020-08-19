@@ -9,55 +9,41 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
-   NavController navController;
+    NavController navController;
     BottomNavigationView bottomNavigationView;
     MenuItem menuItem;
-    private boolean backPressedOnce = false;
+    AppBarConfiguration appBarConfiguration;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
+
+        init();
+        NavigationUI.setupActionBarWithNavController( this, navController, appBarConfiguration );
+        NavigationUI.setupWithNavController( bottomNavigationView, navController );
+
+
+    }
+
+    private void init() {
         bottomNavigationView = findViewById( R.id.bottom_navigation_view );
         bottomNavigationView.setItemIconTintList( null );
         bottomNavigationView.setOnNavigationItemSelectedListener( this );
-
-        navController = Navigation.findNavController(this, R.id.nav_host_container);
-        NavigationUI.setupActionBarWithNavController(this, navController);
-
-     /*   navController.addOnDestinationChangedListener( new NavController.OnDestinationChangedListener() {
-            @Override
-            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-
-                Log.e("destination id" ,navController.getCurrentDestination().getId()+"");
-
-
-                //bottomNavigationView.setSelectedItemId(destination.getId());
-
-                // Here want to change selected tab active right now its not showing active when backpress but fragment is change tab not showing active here
-
-            }
-
-
-        } );
-*/
+        navController = Navigation.findNavController( this, R.id.nav_host_container );
+        appBarConfiguration = new AppBarConfiguration.Builder( new int[]{R.id.categoryFragment, R.id.favouriteFragment, R.id.myPostFragment, R.id.settingFragment} )
+                .build();
     }
 
-    public void setUpNavigation() {
-
-     /*   NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById( R.id.frame_container );
-    //    NavigationUI.setupWithNavController( bottomNavigationView, navHostFragment.getNavController() );*/
-
-
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        menuItem=item;
+        menuItem = item;
 
 
         switch (item.getItemId()) {
@@ -86,40 +72,35 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 break;
         }
 
-        return NavigationUI.onNavDestinationSelected(item, navController)
-                || super.onOptionsItemSelected(item);
+        return NavigationUI.onNavDestinationSelected( item, navController )
+                || super.onOptionsItemSelected( item );
     }
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        return NavigationUI.navigateUp( navController, appBarConfiguration );
+    }
+
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     public void onBackPressed() {
-        if (navController.getGraph().getStartDestination() == navController.getCurrentDestination().getId())
-        {
-            if (backPressedOnce)
-            {
-                super.onBackPressed();
-                return;
-            }
-
-            backPressedOnce = true;
-            Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show();
-
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    backPressedOnce = false;  // setting isBackActivated after 2 second
-                }
-            }, 2000);
-
-
-        }else
-        {
+        if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
-          //  Toast.makeText( getApplicationContext(),"handle to preivous tab how ??",Toast.LENGTH_SHORT ).show();
-
+            return;
         }
 
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit error here", Toast.LENGTH_SHORT).show();
 
+        new Handler().postDelayed( new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 
 }

@@ -1,10 +1,12 @@
-package com.android.fragmentjetpacknavigation;
+package com.android.fragmentjetpacknavigation.adapter;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+
+import com.android.fragmentjetpacknavigation.Fragment.DynamicFragment;
 
 import java.util.ArrayList;
 

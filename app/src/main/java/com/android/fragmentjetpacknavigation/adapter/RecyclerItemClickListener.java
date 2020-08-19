@@ -1,4 +1,4 @@
-package com.android.fragmentjetpacknavigation;
+package com.android.fragmentjetpacknavigation.adapter;
 
 import android.content.Context;
 import android.view.GestureDetector;

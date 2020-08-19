@@ -1,4 +1,4 @@
-package com.android.fragmentjetpacknavigation;
+package com.android.fragmentjetpacknavigation.Fragment;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -6,20 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.fragmentjetpacknavigation.R;
+import com.android.fragmentjetpacknavigation.adapter.RecyclerItemClickListener;
+import com.android.fragmentjetpacknavigation.adapter.SubCategoryAdapter;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class MessageListningFragment extends Fragment  {
     private static RecyclerView.Adapter msg_adapter;
@@ -27,9 +24,9 @@ public class MessageListningFragment extends Fragment  {
     private static RecyclerView msg_recyclerView;
     private View root;
     public static int checkedItem = 0;
-    NavController navController;
-    private ArrayList<String> tabTitle_list, name_list;
-    @Override
+
+    private ArrayList<String>  name_list;
+  /*  @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         setHasOptionsMenu( true );
 
@@ -66,7 +63,7 @@ public class MessageListningFragment extends Fragment  {
         requireActivity().getOnBackPressedDispatcher().addCallback( this, callback );
         super.onCreate( savedInstanceState );
     }
-
+*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,14 +74,13 @@ public class MessageListningFragment extends Fragment  {
         name_list.add( "jai prabhu" );
 
         SetRecyclerView( root );
-        navController = Navigation.findNavController( getActivity(), R.id.nav_host_container );
-        NavigationUI.setupActionBarWithNavController( (AppCompatActivity) getActivity(), navController );
+
 
         msg_recyclerView.addOnItemTouchListener( new RecyclerItemClickListener( getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int pos) {
                 Log.e("Click","full frag");
-                navController.navigate( R.id.fullMsgViewFragment );
+                Navigation.findNavController(root).navigate(R.id.fullMsgViewFragment);
 
             }
         } ) );
@@ -103,11 +99,7 @@ public class MessageListningFragment extends Fragment  {
 
     }
 
-    private void enterFullMsgFragment() {
 
-
-
-    }
 
 
 }
