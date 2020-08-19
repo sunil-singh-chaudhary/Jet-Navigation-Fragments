@@ -1,7 +1,6 @@
 package com.android.fragmentjetpacknavigation;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -25,9 +24,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         setContentView( R.layout.activity_main );
 
         init();
-        NavigationUI.setupActionBarWithNavController( this, navController, appBarConfiguration );
-        NavigationUI.setupWithNavController( bottomNavigationView, navController );
 
+        NavigationUI.setupWithNavController( bottomNavigationView, navController );
+        NavigationUI.setupActionBarWithNavController( this, navController, appBarConfiguration );
 
     }
 
@@ -82,25 +81,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return NavigationUI.navigateUp( navController, appBarConfiguration );
     }
 
-    boolean doubleBackToExitPressedOnce = false;
-
     @Override
     public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
-        }
 
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Please click BACK again to exit error here", Toast.LENGTH_SHORT).show();
+        super.onBackPressed();
 
-        new Handler().postDelayed( new Runnable() {
-
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce=false;
-            }
-        }, 2000);
     }
 
 }
